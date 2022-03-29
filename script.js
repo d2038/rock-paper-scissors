@@ -1,3 +1,5 @@
+game();
+
 function computerPlay() {
   const choice = Math.floor(Math.random() * 3 ) + 1
   switch (choice) {
@@ -6,32 +8,27 @@ function computerPlay() {
     case 2:
       return "Paper"
     case 3:
-      return "Scissors"
-    default:
-      return ""
+      return "Scissors"    
   }
 }
 
-function playRound(playerSelection, computerSelection) {
-  playerSelection = capitalize(playerSelection);
-  const result = getResult(playerSelection, computerSelection);
+function playRound(playerSelection, computerSelection) {  
+  const result = getRoundResult(playerSelection, computerSelection);
   switch (result) {
     case -1:
       return `You Lose! ${computerSelection} beats ${playerSelection}`
     case 0:
       return `It's a tie! Both threw ${playerSelection}`
     case 1:
-      return `You Win! ${playerSelection} beats ${computerSelection}`
-    default:
-      return "Something went wrong"
+      return `You Win! ${playerSelection} beats ${computerSelection}`    
   }  
 }
 
 function capitalize(string) {
-  return string[0].toUpperCase() + string.slice(1).toLowerCase();
+  return (string[0].toUpperCase() + string.slice(1).toLowerCase()).trim();
 }
 
-function getResult(playerSelection, computerSelection) {
+function getRoundResult(playerSelection, computerSelection) {
   if (playerSelection === computerSelection) {
     return 0
   }
@@ -50,8 +47,40 @@ function getResult(playerSelection, computerSelection) {
       if (computerSelection === "Rock") {
         return -1
       }
-      return 1  
-    default:
-      return
+      return 1    
+  }
+}
+
+function game() {
+  let playerSelection;
+  let computerSelection;
+  let playerScore = 0;
+  let computerScore = 0;
+  for (let i = 0; i < 5; i++) {
+    playerSelection = capitalize(prompt("Choose Rock, Paper or Scissors:"));
+    computerSelection = computerPlay();
+    console.log(playRound(playerSelection, computerSelection));
+    roundResult = getRoundResult(playerSelection, computerSelection);
+    switch (roundResult) {
+      case -1:
+        computerScore++;
+        break;
+      case 0:
+        break;
+      case 1:
+        playerScore++;
+        break;
+    }
+  }
+  printWinner(playerScore, computerScore); 
+}
+
+function printWinner(playerScore, computerScore) {
+  if (playerScore > computerScore) {
+    console.log(`You won ${playerScore} to ${computerScore}`)       
+  } else if (playerScore < computerScore) {
+    console.log(`You lost ${playerScore} to ${computerScore}`)
+  } else {
+    console.log(`You tied ${playerScore} to ${computerScore}`)
   }
 }
