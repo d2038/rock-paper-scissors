@@ -10,14 +10,31 @@ game();
 function game() {
   playerScore = 0;
   computerScore = 0;
+
   buttons.forEach(button => button.addEventListener('click', playRound));
 }
 
 function playRound() {
-  let playerSelection = this.textContent;
-  let computerSelection = computerPlay();
+  const playerSelection = this.textContent;
+  const computerSelection = computerPlay();
   
+  const roundResult = getRoundResult(playerSelection, computerSelection);
+  switch (roundResult) {
+    case -1:
+      computerScore++;
+      break;
+    case 0:
+      break;
+    case 1:
+      playerScore++;
+      break;
+  }
+
+  score.textContent = `Player: ${playerScore} Computer: ${computerScore}`;
+
   
+
+  info.textContent = getRoundInfo(playerSelection, computerSelection);
 }
 
 function computerPlay() {
@@ -33,6 +50,41 @@ function computerPlay() {
   }
 }
 
+function getRoundResult(playerSelection, computerSelection) {
+  if (playerSelection === computerSelection) {
+    return 0
+  }
+  switch (playerSelection) {
+    case "Rock":
+      if (computerSelection === "Paper") {
+        return -1
+      }
+      return 1      
+    case "Paper":
+      if (computerSelection === "Rock") {
+        return 1
+      }
+      return -1 
+    case "Scissors":
+      if (computerSelection === "Rock") {
+        return -1
+      }
+      return 1    
+  }
+}
+
+function getRoundInfo(playerSelection, computerSelection) {  
+  const result = getRoundResult(playerSelection, computerSelection);
+  switch (result) {
+    case -1:
+      return `You Lose! ${computerSelection} beats ${playerSelection}`
+    case 0:
+      return `It's a tie! Both threw ${playerSelection}`
+    case 1:
+      return `You Win! ${playerSelection} beats ${computerSelection}`    
+  }  
+}
+
 // game();
 
 // function game() {
@@ -45,59 +97,28 @@ function computerPlay() {
 //     computerSelection = computerPlay();
 //     console.log(playRound(playerSelection, computerSelection));
 //     roundResult = getRoundResult(playerSelection, computerSelection);
-//     switch (roundResult) {
-//       case -1:
-//         computerScore++;
-//         break;
-//       case 0:
-//         break;
-//       case 1:
-//         playerScore++;
-//         break;
-//     }
+    // switch (roundResult) {
+    //   case -1:
+    //     computerScore++;
+    //     break;
+    //   case 0:
+    //     break;
+    //   case 1:
+    //     playerScore++;
+    //     break;
+    // }
 //   }
 //   printWinner(playerScore, computerScore); 
 // }
 
 
-// function playRound(playerSelection, computerSelection) {  
-//   const result = getRoundResult(playerSelection, computerSelection);
-//   switch (result) {
-//     case -1:
-//       return `You Lose! ${computerSelection} beats ${playerSelection}`
-//     case 0:
-//       return `It's a tie! Both threw ${playerSelection}`
-//     case 1:
-//       return `You Win! ${playerSelection} beats ${computerSelection}`    
-//   }  
-// }
+
 
 // function capitalize(string) {
 //   return (string[0].toUpperCase() + string.slice(1).toLowerCase()).trim();
 // }
 
-// function getRoundResult(playerSelection, computerSelection) {
-//   if (playerSelection === computerSelection) {
-//     return 0
-//   }
-//   switch (playerSelection) {
-//     case "Rock":
-//       if (computerSelection === "Paper") {
-//         return -1
-//       }
-//       return 1      
-//     case "Paper":
-//       if (computerSelection === "Rock") {
-//         return 1
-//       }
-//       return -1 
-//     case "Scissors":
-//       if (computerSelection === "Rock") {
-//         return -1
-//       }
-//       return 1    
-//   }
-// }
+
 
 
 
