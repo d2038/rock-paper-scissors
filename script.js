@@ -5,12 +5,33 @@ const score = document.querySelector('.score');
 const info = document.querySelector('.info');
 const buttons = document.querySelectorAll('.selections button');
 
+game();
 
+function game() {
+  playerScore = 0;
+  computerScore = 0;
+  buttons.forEach(button => button.addEventListener('click', playRound));
+}
 
+function playRound() {
+  let playerSelection = this.textContent;
+  let computerSelection = computerPlay();
+  
+  
+}
 
+function computerPlay() {
+  const choice = Math.floor(Math.random() * 3 ) + 1;
 
-
-
+  switch (choice) {
+    case 1:
+      return "Rock";
+    case 2:
+      return "Paper";
+    case 3:
+      return "Scissors";
+  }
+}
 
 // game();
 
@@ -38,17 +59,6 @@ const buttons = document.querySelectorAll('.selections button');
 //   printWinner(playerScore, computerScore); 
 // }
 
-// function computerPlay() {
-//   const choice = Math.floor(Math.random() * 3 ) + 1
-//   switch (choice) {
-//     case 1:
-//       return "Rock"
-//     case 2:
-//       return "Paper"
-//     case 3:
-//       return "Scissors"    
-//   }
-// }
 
 // function playRound(playerSelection, computerSelection) {  
 //   const result = getRoundResult(playerSelection, computerSelection);
