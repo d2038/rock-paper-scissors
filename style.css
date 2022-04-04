@@ -23,11 +23,6 @@ img {
   max-width: 150px;
 }
 
-.selection {
-  display: flex;
-  flex-direction: column;
-}
-
 .results {
   display: flex;
   flex-direction: column;
@@ -49,4 +44,5 @@ img {
   background-color: skyblue;
   padding: 5px 10px;
   border-radius: 3px;
+  font-size: large;
 }
