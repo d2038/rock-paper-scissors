@@ -32,7 +32,11 @@ function playRound() {
 
   score.textContent = `Player: ${playerScore} Computer: ${computerScore}`;
 
-  
+  if (playerScore === 5 || computerScore === 5) {
+    gameOver();
+    playAgain();
+    return;
+  }
 
   info.textContent = getRoundInfo(playerSelection, computerSelection);
 }
@@ -85,49 +89,36 @@ function getRoundInfo(playerSelection, computerSelection) {
   }  
 }
 
-// game();
+function gameOver() {
+  buttons.forEach(button => button.removeEventListener('click', playRound));
 
-// function game() {
-//   let playerSelection;
-//   let computerSelection;
-//   let playerScore = 0;
-//   let computerScore = 0;
-//   for (let i = 0; i < 5; i++) {
-//     playerSelection = capitalize(prompt("Choose Rock, Paper or Scissors:"));
-//     computerSelection = computerPlay();
-//     console.log(playRound(playerSelection, computerSelection));
-//     roundResult = getRoundResult(playerSelection, computerSelection);
-    // switch (roundResult) {
-    //   case -1:
-    //     computerScore++;
-    //     break;
-    //   case 0:
-    //     break;
-    //   case 1:
-    //     playerScore++;
-    //     break;
-    // }
-//   }
-//   printWinner(playerScore, computerScore); 
-// }
+  let result;
+  if (playerScore > computerScore) {
+    result = "You won the game. Congratulations.";
+  } else {
+    result = "You lost the game. Better luck next time.";
+  }
 
+  info.textContent = result;
+}
 
+function playAgain() {
+  const againButton = document.createElement('button');
+  againButton.classList.add('againButton');
+  againButton.textContent = 'Play again?';
+  
+  const div = document.createElement('div');
+  div.classList.add('again');
+  div.appendChild(againButton);
+  
+  const body = document.querySelector('body');
 
+  againButton.addEventListener('click', () => {
+    body.removeChild(div);
+    game();
+    score.textContent = `Player: ${playerScore} Computer: ${computerScore}`;
+    info.textContent = 'Click Rock, Paper or Scissors';
+  });
 
-// function capitalize(string) {
-//   return (string[0].toUpperCase() + string.slice(1).toLowerCase()).trim();
-// }
-
-
-
-
-
-// function printWinner(playerScore, computerScore) {
-//   if (playerScore > computerScore) {
-//     console.log(`You won ${playerScore} to ${computerScore}`)       
-//   } else if (playerScore < computerScore) {
-//     console.log(`You lost ${playerScore} to ${computerScore}`)
-//   } else {
-//     console.log(`You tied ${playerScore} to ${computerScore}`)
-//   }
-// }
+  body.appendChild(div);
+}
