@@ -3,7 +3,7 @@ let computerScore;
 
 const score = document.querySelector('.score');
 const info = document.querySelector('.info');
-const buttons = document.querySelectorAll('.selections button');
+const images = document.querySelectorAll('.selections img');
 
 game();
 
@@ -11,11 +11,11 @@ function game() {
   playerScore = 0;
   computerScore = 0;
 
-  buttons.forEach(button => button.addEventListener('click', playRound));
+  images.forEach(image => image.addEventListener('click', playRound));
 }
 
 function playRound() {
-  const playerSelection = this.textContent;
+  const playerSelection = this.getAttribute('data-value');
   const computerSelection = computerPlay();
   
   const roundResult = getRoundResult(playerSelection, computerSelection);
@@ -81,16 +81,16 @@ function getRoundInfo(playerSelection, computerSelection) {
   const result = getRoundResult(playerSelection, computerSelection);
   switch (result) {
     case -1:
-      return `You Lose! ${computerSelection} beats ${playerSelection}`
+      return `You Lose! ${computerSelection} beats ${playerSelection}.`
     case 0:
-      return `It's a tie! Both threw ${playerSelection}`
+      return `It's a tie! Both threw ${playerSelection}.`
     case 1:
-      return `You Win! ${playerSelection} beats ${computerSelection}`    
+      return `You Win! ${playerSelection} beats ${computerSelection}.`    
   }  
 }
 
 function gameOver() {
-  buttons.forEach(button => button.removeEventListener('click', playRound));
+  images.forEach(image => image.removeEventListener('click', playRound));
 
   let result;
   if (playerScore > computerScore) {
@@ -117,7 +117,7 @@ function playAgain() {
     body.removeChild(div);
     game();
     score.textContent = `Player: ${playerScore} Computer: ${computerScore}`;
-    info.textContent = 'Click Rock, Paper or Scissors';
+    info.textContent = 'Click Rock, Paper or Scissors.';
   });
 
   body.appendChild(div);
