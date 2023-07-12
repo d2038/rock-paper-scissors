@@ -23,6 +23,14 @@ img {
   max-width: 150px;
 }
 
+img:hover {
+  transform: scale(1.1);  
+}
+
+img:active {
+  transform: scale(1);  
+}
+
 .results {
   display: flex;
   flex-direction: column;
@@ -45,4 +53,9 @@ img {
   padding: 5px 10px;
   border-radius: 3px;
   font-size: large;
+}
+
+.againButton:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 12px rgba(6, 14, 87, 0.6);
 }
